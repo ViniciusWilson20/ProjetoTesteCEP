@@ -150,6 +150,28 @@ public class UC01ConsultaCEP {
 		driver.findElement(By.cssSelector(".footer")).click();
 	}
 
+	@Test
+	public void CT05ConsultaCPFcomTudoEmBranco() {
+		driver.get("http://www.buscacep.correios.com.br/sistemas/buscacep/BuscaCep.cfm");
+		driver.manage().window().setSize(new Dimension(1616, 876));
+		driver.findElement(By.name("UF")).click();
+		driver.findElement(By.name("UF")).click();
+		driver.findElement(By.name("Localidade")).click();
+		driver.findElement(By.cssSelector(".contentform")).click();
+		driver.findElement(By.name("Tipo")).click();
+		driver.findElement(By.name("Tipo")).click();
+		{
+			WebElement element = driver.findElement(By.name("Tipo"));
+			Actions builder = new Actions(driver);
+			builder.doubleClick(element).perform();
+		}
+		driver.findElement(By.name("Logradouro")).click();
+		driver.findElement(By.name("Numero")).click();
+		driver.findElement(By.cssSelector(".contentform")).click();
+		driver.findElement(By.cssSelector(".btn2")).click();
+		assertThat(driver.switchTo().alert().getText(), is("Selecione a UF !"));
+	}
+
 	public void espera() {
 		try {
 			Thread.sleep(2000);
